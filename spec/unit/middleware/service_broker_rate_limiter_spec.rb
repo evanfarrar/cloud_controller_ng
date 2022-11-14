@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'mock_redis'
 
 module CloudFoundry
   module Middleware
@@ -16,6 +17,8 @@ module CloudFoundry
       }
 
       before(:each) do
+        mock_redis = MockRedis.new
+        allow(Redis).to receive(:new).and_return(mock_redis)
         Singleton.__init__(ServiceBrokerRequestCounter)
         allow(ActionDispatch::Request).to receive(:new).and_return(fake_request)
         allow(logger).to receive(:info)
