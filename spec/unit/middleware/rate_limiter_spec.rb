@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'mock_redis'
 
 module CloudFoundry
   module Middleware
@@ -352,8 +351,6 @@ module CloudFoundry
       describe 'get' do
         before(:each) do
           Timecop.freeze
-          mock_redis = MockRedis.new
-          allow(Redis).to receive(:new).and_return(mock_redis)
         end
         after(:each) do Timecop.return end
 
